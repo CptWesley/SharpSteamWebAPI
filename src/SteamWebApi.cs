@@ -43,9 +43,19 @@ namespace SharpSteamWebApi
         }
 
         // Retrieves player owned games info.
-        public OwnedGameInfo[] GetOwnedGames(long playerId, bool includeFreeGames)
+        public OwnedGameInfo[] GetOwnedGames(long playerId, bool includeFreeGames, bool verbose)
         {
+            if (verbose)
+                return VerboseOwnedGameInfo.Query(Key, playerId, includeFreeGames);
             return OwnedGameInfo.Query(Key, playerId, includeFreeGames);
+        }
+
+        // Retrieves recently played owned games info.
+        public OwnedGameInfo[] GetRecentGames(long playerId, int count, bool verbose)
+        {
+            if (verbose)
+                return VerboseOwnedGameInfo.QueryRecent(Key, playerId, count);
+            return OwnedGameInfo.QueryRecent(Key, playerId, count);
         }
     }
 }
