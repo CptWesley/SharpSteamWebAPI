@@ -6,6 +6,7 @@ namespace SharpSteamWebApi
     {
         public PlayerSummary Summary { get; set; }
         public PlayerBanInfo BanInfo { get; set; }
+        public OwnedGameInfo[] OwnedGames { get; set; }
 
         // Constructor for a player.
         public Player()
@@ -32,7 +33,8 @@ namespace SharpSteamWebApi
             Player player = new Player
             {
                 Summary = PlayerSummary.Query(apikey, playerId),
-                BanInfo = PlayerBanInfo.Query(apikey, playerId)
+                BanInfo = PlayerBanInfo.Query(apikey, playerId),
+                OwnedGames = OwnedGameInfo.Query(apikey, playerId, true)
             };
 
             return player;
