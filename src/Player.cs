@@ -55,5 +55,113 @@ namespace SharpSteamWebApi
             AppInfo = null;
             ServerIp = null;
         }
+
+        // Checks if this player has an ID.
+        public bool HasId()
+        {
+            return Id != -1;
+        }
+
+        // Checks if this player has a display name.
+        public bool HasDisplayName()
+        {
+            return DisplayName != null;
+        }
+
+        // Checks if this player has a status.
+        public bool HasStatus()
+        {
+            return Status != -1;
+        }
+
+        // Checks if this player has an visibility.
+        public bool HasVisibility()
+        {
+            return Visibility != -1;
+        }
+
+        // Checks if this player has a last known date.
+        public bool HasLastSeen()
+        {
+            return LastSeen != DateTime.MinValue;
+        }
+
+        // Checks if this player has an URL.
+        public bool HasUrl()
+        {
+            return Url != null;
+        }
+
+        // Checks if this player has a small avatar.
+        public bool HasAvatarSmall()
+        {
+            return AvatarSmall != null;
+        }
+
+        // Checks if this player has a medium avatar.
+        public bool HasAvatarMedium()
+        {
+            return AvatarMedium != null;
+        }
+
+        // Checks if this player has a large avatar.
+        public bool HasAvatarLarge()
+        {
+            return AvatarLarge != null;
+        }
+
+        // Checks if this player has a name.
+        public bool HasName()
+        {
+            return Name != null;
+        }
+
+        // Checks if this player has a primary clan.
+        public bool HasPrimaryClan()
+        {
+            return PrimaryClan != -1;
+        }
+
+        // Checks if this player has a creation date.
+        public bool HasCreationDate()
+        {
+            return CreationDate != DateTime.MinValue;
+        }
+
+        // Checks if this player has a city ID.
+        public bool HasCityId()
+        {
+            return CityId != -1;
+        }
+
+        // Checks if this player has a country code.
+        public bool HasCountry()
+        {
+            return Country != null;
+        }
+
+        // Checks if this player has a state code.
+        public bool HasState()
+        {
+            return State != null;
+        }
+
+        // Checks if this player has an application id.
+        public bool HasAppId()
+        {
+            return AppId != -1;
+        }
+
+        // Checks if this player has application info.
+        public bool HasAppInfo()
+        {
+            return AppInfo != null;
+        }
+
+        // Checks if this player has a server ip.
+        public bool HasServerIp()
+        {
+            return ServerIp != null;
+        }
     }
 }
