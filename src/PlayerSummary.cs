@@ -34,6 +34,9 @@ namespace SharpSteamWebApi
         public IPAddress ServerIp { get; set; }
         public int ServerPort { get; set; }
 
+        // Other
+        public long SharedGameOwner { get; set; }
+
         // Constructor for player summaries.
         public PlayerSummary()
         {
@@ -58,6 +61,7 @@ namespace SharpSteamWebApi
             AppInfo = null;
             ServerIp = null;
             ServerPort = -1;
+            SharedGameOwner = -1;
         }
 
         // Checks if this player has an ID.
@@ -174,6 +178,12 @@ namespace SharpSteamWebApi
             return ServerPort != -1;
         }
 
+        // Checks if this player has info on the owner of the shared game he is playing.
+        public bool HasSharedGameOwner()
+        {
+            return SharedGameOwner != -1;
+        }
+
         // Queries player summaries.
         public static PlayerSummary Query(string apikey, long playerId)
         {
@@ -183,7 +193,9 @@ namespace SharpSteamWebApi
             if (xml == null)
                 return null;
 
-            return Parse(xml.Descendants("player").ToArray()[0]);
+            PlayerSummary result = Parse(xml.Descendants("player").ToArray()[0]);
+            result.SharedGameOwner = GetSharedGameOwner(apikey, playerId, result.AppId);
+            return result;
         }
 
         // Parses player summaries.
@@ -219,6 +231,15 @@ namespace SharpSteamWebApi
             };
 
             return result;
+        }
+
+        // Parse player shared game owner.
+        private static long GetSharedGameOwner(string apikey, long playerId, int appId)
+        {
+            string url = String.Format("http://api.steampowered.com/IPlayerService/IsPlayingSharedGame/v0001/?key={0}&steamid={1}&appid_playing={2}&format=xml", apikey, playerId, appId);
+            XDocument xml = GetXML(url);
+            ElementParser parser = new ElementParser(xml.Element("response"));
+            return parser.GetAttributeInteger("lender_steamid");
         }
     }
 }
