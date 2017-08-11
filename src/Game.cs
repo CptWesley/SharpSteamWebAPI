@@ -102,6 +102,9 @@ namespace SharpSteamWebApi
             string url = String.Format("http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid={0}&format=xml", appId);
             XDocument xml = GetXML(url);
 
+            if (xml == null)
+                return new Dictionary<string, double>();
+
             XElement[] items = xml.Descendants("achievement").ToArray();
 
             Dictionary<string, double> result = new Dictionary<string, double>();
@@ -120,6 +123,9 @@ namespace SharpSteamWebApi
         {
             string url = String.Format("http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key={0}&appid={1}&format=xml", apikey, appId);
             XDocument xml = GetXML(url);
+
+            if (xml == null)
+                return new Game();
 
             Game result = Parse(xml.Element("game"));
             result.Id = appId;

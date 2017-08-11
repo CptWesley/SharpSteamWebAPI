@@ -127,6 +127,9 @@ namespace SharpSteamWebApi
             string url = String.Format("http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid={0}&count={1}&maxlength={2}&format=xml", appId, count, length);
             XDocument xml = GetXML(url);
 
+            if (xml == null)
+                return new NewsArticle[0];
+
             XElement[] items = xml.Descendants("newsitem").ToArray();
 
             for (int i = 0; i < items.Length; ++i)

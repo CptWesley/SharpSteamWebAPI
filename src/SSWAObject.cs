@@ -11,7 +11,16 @@ namespace SharpSteamWebApi
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "GET";
-            WebResponse res = req.GetResponse();
+            HttpWebResponse res;
+            try
+            {
+                res = (HttpWebResponse) req.GetResponse();
+            }
+            catch
+            {
+                return null;
+            }
+
             res.GetResponseStream();
             Stream stream = res.GetResponseStream();
 
