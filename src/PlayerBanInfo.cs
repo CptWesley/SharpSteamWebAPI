@@ -1,7 +1,7 @@
 ﻿namespace SharpSteamWebApi
 {
     // Ban info container
-    public struct BanInfo
+    public struct PlayerBanInfo
     {
         public bool HasVACBan { get; set; }
         public bool HasCommunityBan { get; set; }
