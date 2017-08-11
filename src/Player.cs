@@ -13,6 +13,7 @@ namespace SharpSteamWebApi
         {
             Summary = null;
             BanInfo = null;
+            OwnedGames = new OwnedGameInfo[0];
         }
 
         // Checks if this player has a summary.
@@ -25,6 +26,12 @@ namespace SharpSteamWebApi
         public bool HasBanInfo()
         {
             return BanInfo != null;
+        }
+
+        // Checks if we have info on owned games.
+        public bool HasOwnedGames()
+        {
+            return OwnedGames.Length > 0;
         }
 
         // Queries all player info.
