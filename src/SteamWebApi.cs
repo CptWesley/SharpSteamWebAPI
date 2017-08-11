@@ -57,5 +57,16 @@ namespace SharpSteamWebApi
                 return VerboseOwnedGameInfo.QueryRecent(Key, playerId, count);
             return OwnedGameInfo.QueryRecent(Key, playerId, count);
         }
+
+        // Retrieves achieved player achievements.
+        public PlayerAchievement[] GetPlayerAchievements(long playerId, int appId)
+        {
+            return PlayerAchievement.Query(Key, playerId, appId);
+        }
+
+        public PlayerAchievement[] GetPlayerAchievements(Player player, int appId)
+        {
+            return PlayerAchievement.Query(Key, player.Summary.Id, appId);
+        }
     }
 }
