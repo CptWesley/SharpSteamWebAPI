@@ -38,7 +38,7 @@ namespace SharpSteamWebApi
         }
 
         // Queries all the owned game information of a player.
-        public OwnedGameInfo[] Query(string apikey, long playerId, bool includeFreeGames)
+        public static OwnedGameInfo[] Query(string apikey, long playerId, bool includeFreeGames)
         {
             int freeGamesInt = 0;
             if (includeFreeGames)
@@ -60,7 +60,7 @@ namespace SharpSteamWebApi
         }
 
         // Parses the xml formatted owned game info to an object.
-        private OwnedGameInfo Parse(XElement xml)
+        private static OwnedGameInfo Parse(XElement xml)
         {
             if (xml == null)
                 return null;
