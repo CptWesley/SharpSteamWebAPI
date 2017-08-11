@@ -106,16 +106,24 @@ namespace SharpSteamWebApi
         internal IPAddress GetAttributeIpAdress(string name)
         {
             string str = GetAttributeString(name);
+
+            if (str == null)
+                return null;
+
             string pattern = @"(\d+)\.(\d+)\.(\d+)\.(\d+):\d+";
             Regex regex = new Regex(pattern);
 
             Match match = regex.Match(str);
+
+            if (!match.Success)
+                return null;
+            
             IPAddress result = new IPAddress(new []
             {
-                byte.Parse(match.Groups[0].Value),
                 byte.Parse(match.Groups[1].Value),
                 byte.Parse(match.Groups[2].Value),
-                byte.Parse(match.Groups[3].Value)
+                byte.Parse(match.Groups[3].Value),
+                byte.Parse(match.Groups[4].Value)
             });
 
             return result;
@@ -125,12 +133,19 @@ namespace SharpSteamWebApi
         internal int GetAttributePort(string name)
         {
             string str = GetAttributeString(name);
+
+            if (str == null)
+                return -1;
+
             string pattern = @"\d+\.\d+\.\d+\.\d+:(\d+)";
             Regex regex = new Regex(pattern);
 
             Match match = regex.Match(str);
 
-            return int.Parse(match.Groups[4].Value);
+            if (!match.Success)
+                return -1;
+
+            return int.Parse(match.Groups[1].Value);
         }
     }
 }
