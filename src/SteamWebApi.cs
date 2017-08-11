@@ -24,10 +24,22 @@ namespace SharpSteamWebApi
             return Game.Query(Key, appId);
         }
 
-        // Retrieves player info.
+        // Retrieves full player info.
         public Player GetPlayer(long playerId)
         {
             return Player.Query(Key, playerId);
+        }
+
+        // Retrieves player summary.
+        public PlayerSummary GetPlayerSummary(long playerId)
+        {
+            return PlayerSummary.Query(Key, playerId);
+        }
+
+        // Retrieves player ban info.
+        public PlayerBanInfo GetPlayerBanInfo(long playerId)
+        {
+            return PlayerBanInfo.Query(Key, playerId);
         }
     }
 }
