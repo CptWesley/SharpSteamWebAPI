@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace SharpSteamWebApi
 {
@@ -28,7 +29,7 @@ namespace SharpSteamWebApi
 
         public int AppId { get; set; }
         public string AppInfo { get; set; }
-        public string ServerIp { get; set; }
+        public IPAddress ServerIp { get; set; }
 
         // Constructor for a player.
         public Player()
