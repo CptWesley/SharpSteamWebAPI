@@ -52,6 +52,7 @@
     <Compile Include="Statistic.cs" />
     <Compile Include="SteamWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerboseOwnedGameInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
