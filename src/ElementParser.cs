@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace SharpSteamWebApi
@@ -98,6 +100,37 @@ namespace SharpSteamWebApi
             res = res.AddSeconds(secs);
 
             return res;
+        }
+
+        // Returns a certain attribute as an IPAdress.
+        internal IPAddress GetAttributeIpAdress(string name)
+        {
+            string str = GetAttributeString(name);
+            string pattern = @"(\d+)\.(\d+)\.(\d+)\.(\d+):\d+";
+            Regex regex = new Regex(pattern);
+
+            Match match = regex.Match(str);
+            IPAddress result = new IPAddress(new []
+            {
+                byte.Parse(match.Groups[0].Value),
+                byte.Parse(match.Groups[1].Value),
+                byte.Parse(match.Groups[2].Value),
+                byte.Parse(match.Groups[3].Value)
+            });
+
+            return result;
+        }
+
+        // Returns a certain attribute as a port number.
+        internal int GetAttributePort(string name)
+        {
+            string str = GetAttributeString(name);
+            string pattern = @"\d+\.\d+\.\d+\.\d+:(\d+)";
+            Regex regex = new Regex(pattern);
+
+            Match match = regex.Match(str);
+
+            return int.Parse(match.Groups[4].Value);
         }
     }
 }

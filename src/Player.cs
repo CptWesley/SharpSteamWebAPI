@@ -30,6 +30,7 @@ namespace SharpSteamWebApi
         public int AppId { get; set; }
         public string AppInfo { get; set; }
         public IPAddress ServerIp { get; set; }
+        public int ServerPort { get; set; }
 
         // Constructor for a player.
         public Player()
@@ -54,6 +55,7 @@ namespace SharpSteamWebApi
             AppId = -1;
             AppInfo = null;
             ServerIp = null;
+            ServerPort = -1;
         }
 
         // Checks if this player has an ID.
@@ -163,5 +165,12 @@ namespace SharpSteamWebApi
         {
             return ServerIp != null;
         }
+
+        // Checks if this player has a server port.
+        public bool HasServerPort()
+        {
+            return ServerPort != -1;
+        }
+
     }
 }
