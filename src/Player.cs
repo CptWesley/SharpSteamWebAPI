@@ -44,6 +44,15 @@ namespace SharpSteamWebApi
             AvatarSmall = null;
             AvatarMedium = null;
             AvatarLarge = null;
+            Name = null;
+            PrimaryClan = -1;
+            CreationDate = DateTime.MinValue;
+            CityId = -1;
+            Country = null;
+            State = null;
+            AppId = -1;
+            AppInfo = null;
+            ServerIp = null;
         }
     }
 }
