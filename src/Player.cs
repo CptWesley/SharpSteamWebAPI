@@ -186,6 +186,38 @@ namespace SharpSteamWebApi
             return ParseSummary(xml.Descendants("player").ToArray()[0]);
         }
 
+        // Queries player bans.
+        private static BanInfo QueryBanInfo(string apikey, long playerId)
+        {
+            string url = String.Format("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key={0}&steamids={1}&format=xml", apikey, playerId);
+            XDocument xml = GetXML(url);
+
+            if (xml == null)
+                return new BanInfo();
+
+            return ParseBans(xml.Descendants("player").ToArray()[0]);
+        }
+
+        // Parses player bans
+        private static BanInfo ParseBans(XElement xml)
+        {
+            if (xml == null)
+                return new BanInfo();
+
+            ElementParser parser = new ElementParser(xml);
+            BanInfo result = new BanInfo
+            {
+                HasVACBan = parser.GetAttributeBoolean("VACBanned"),
+                HasCommunityBan = parser.GetAttributeBoolean("CommunityBanned"),
+                HasTradeBan = parser.GetAttributeBoolean("EconomyBan"),
+                VACBanCount = parser.GetAttributeInteger("NumberOfVACBans"),
+                GameBanCount = parser.GetAttributeInteger("NumberOfGameBans"),
+                DaysSinceLastBan = parser.GetAttributeInteger("DaysSinceLastBan")
+            };
+
+            return result;
+        }
+
         // Parses player summaries.
         private static Player ParseSummary(XElement xml)
         {
