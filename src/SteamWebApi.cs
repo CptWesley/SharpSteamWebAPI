@@ -23,5 +23,11 @@ namespace SharpSteamWebApi
         {
             return Game.Query(Key, appId);
         }
+
+        // Retrieves player info.
+        public Player GetPlayer(long playerId)
+        {
+            return Player.Query(Key, playerId);
+        }
     }
 }

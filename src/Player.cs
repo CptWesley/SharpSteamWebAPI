@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
+using System.Xml.Linq;
 
 namespace SharpSteamWebApi
 {
@@ -172,5 +174,58 @@ namespace SharpSteamWebApi
             return ServerPort != -1;
         }
 
+        // Queries player summaries.
+        private static Player QuerySummary(string apikey, long playerId)
+        {
+            string url = String.Format("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={0}&steamids={1}&format=xml", apikey, playerId);
+            XDocument xml = GetXML(url);
+
+            if (xml == null)
+                return new Player();
+
+            return ParseSummary(xml.Descendants("player").ToArray()[0]);
+        }
+
+        // Parses player summaries.
+        private static Player ParseSummary(XElement xml)
+        {
+            if (xml == null)
+                return null;
+
+            ElementParser parser = new ElementParser(xml);
+            Player result = new Player
+            {
+                Id = parser.GetAttributeLong("steamid"),
+                DisplayName = parser.GetAttributeString("personaname"),
+                Url = parser.GetAttributeString("profileurl"),
+                AvatarSmall = parser.GetAttributeString("avatar"),
+                AvatarMedium = parser.GetAttributeString("avatarmedium"),
+                AvatarLarge = parser.GetAttributeString("avatarfull"),
+                Status = parser.GetAttributeInteger("personastate"),
+                Visibility = parser.GetAttributeInteger("communityvisibilitystate"),
+                Configured = parser.GetAttributeBoolean("profilestate"),
+                LastSeen = parser.GetAttributeDate("lastlogoff"),
+                AllowsComments = parser.GetAttributeBoolean("commentpermission"),
+                Name = parser.GetAttributeString("realname"),
+                PrimaryClan = parser.GetAttributeLong("primaryclanid"),
+                CreationDate = parser.GetAttributeDate("timecreated"),
+                AppId = parser.GetAttributeInteger("gameid"),
+                AppInfo = parser.GetAttributeString("gameextrainfo"),
+                ServerIp = parser.GetAttributeIpAdress("gameserverip"),
+                ServerPort = parser.GetAttributePort("gameserverip"),
+                CityId = parser.GetAttributeInteger("loccityid"),
+                Country = parser.GetAttributeString("loccountrycode"),
+                State = parser.GetAttributeString("locstatecode")
+            };
+
+            return result;
+        }
+
+        // Queries all player info.
+        public static Player Query(string apikey, long playerId)
+        {
+            Player player = QuerySummary(apikey, playerId);
+            return player;
+        }
     }
 }
