@@ -59,6 +59,24 @@ namespace SharpSteamWebApi
             return result;
         }
 
+        // Queries all the verbose owned game information of recently played games of a player.
+        public static OwnedGameInfo[] QueryRecent(string apikey, long playerId, int count)
+        {
+            string url = String.Format("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key={0}&steamid={1}&count={2}&format=xml", apikey, playerId, count);
+            XDocument xml = GetXML(url);
+
+            if (xml == null)
+                return new OwnedGameInfo[0];
+
+            XElement[] items = xml.Descendants("message").ToArray();
+            OwnedGameInfo[] result = new OwnedGameInfo[items.Length];
+
+            for (int i = 0; i < items.Length; ++i)
+                result[i] = Parse(items[i]);
+
+            return result;
+        }
+
         // Parses the xml formatted owned game info to an object.
         private static OwnedGameInfo Parse(XElement xml)
         {

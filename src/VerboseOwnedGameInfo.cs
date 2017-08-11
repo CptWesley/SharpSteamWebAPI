@@ -50,7 +50,25 @@ namespace SharpSteamWebApi
             if (includeFreeGames)
                 freeGamesInt = 1;
 
-            string url = String.Format("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&include_played_free_games={2}&format=xml", apikey, playerId, freeGamesInt);
+            string url = String.Format("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={0}&steamid={1}&include_played_free_games={2}&include_appinfo=1&format=xml", apikey, playerId, freeGamesInt);
+            XDocument xml = GetXML(url);
+
+            if (xml == null)
+                return new VerboseOwnedGameInfo[0];
+
+            XElement[] items = xml.Descendants("message").ToArray();
+            VerboseOwnedGameInfo[] result = new VerboseOwnedGameInfo[items.Length];
+
+            for (int i = 0; i < items.Length; ++i)
+                result[i] = Parse(items[i]);
+
+            return result;
+        }
+
+        // Queries all the verbose owned game information of recently played games of a player.
+        public static VerboseOwnedGameInfo[] QueryRecent(string apikey, long playerId, int count)
+        {
+            string url = String.Format("http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key={0}&steamid={1}&count={2}&format=xml", apikey, playerId, count);
             XDocument xml = GetXML(url);
 
             if (xml == null)
