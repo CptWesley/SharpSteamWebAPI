@@ -41,5 +41,11 @@ namespace SharpSteamWebApi
         {
             return PlayerBanInfo.Query(Key, playerId);
         }
+
+        // Retrieves player owned games info.
+        public OwnedGameInfo[] GetOwnedGames(long playerId, bool includeFreeGames)
+        {
+            return OwnedGameInfo.Query(Key, playerId, includeFreeGames);
+        }
     }
 }
