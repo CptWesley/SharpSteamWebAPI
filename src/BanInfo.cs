@@ -3,7 +3,7 @@
     // Ban info container
     public struct BanInfo
     {
-        public bool HasVacBan { get; set; }
+        public bool HasVACBan { get; set; }
         public bool HasCommunityBan { get; set; }
         public bool HasTradeBan { get; set; }
         public int VACBanCount { get; set; }
