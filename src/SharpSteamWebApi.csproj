@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Achievement.cs" />
+    <Compile Include="OwnedGameInfo.cs" />
     <Compile Include="PlayerBanInfo.cs" />
     <Compile Include="ElementParser.cs" />
     <Compile Include="Game.cs" />
