@@ -4,7 +4,7 @@ using System.Net;
 namespace SharpSteamWebApi
 {
     // Steam player.
-    public class Player
+    public class Player : SSWAObject
     {
         // Public data.
         public long Id { get; set; }
