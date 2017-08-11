@@ -14,6 +14,18 @@ namespace SharpSteamWebApi
             BanInfo = null;
         }
 
+        // Checks if this player has a summary.
+        public bool HasSummary()
+        {
+            return Summary != null;
+        }
+
+        // Checks if this player has ban info.
+        public bool HasBanInfo()
+        {
+            return BanInfo != null;
+        }
+
         // Queries all player info.
         public static Player Query(string apikey, long playerId)
         {
