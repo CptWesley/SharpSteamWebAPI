@@ -38,7 +38,8 @@ namespace SharpSteamWebApi
             if (xml == null)
                 return new PlayerStatistic[0];
 
-            XElement[] items = xml.Descendants("friend").ToArray();
+            XElement[] items = xml.Descendants("stat").ToArray();
+
             PlayerStatistic[] result = new PlayerStatistic[items.Length];
 
             for (int i = 0; i < items.Length; ++i)
