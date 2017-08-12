@@ -35,6 +35,11 @@ namespace SharpSteamWebApi
             return GetPlayer(friend.Id);
         }
 
+        public Player GetPlayer(string name)
+        {
+            return GetPlayer(FindPlayerId(name));
+        }
+
         // Retrieves player summary.
         public PlayerSummary GetPlayerSummary(long playerId)
         {
@@ -46,6 +51,11 @@ namespace SharpSteamWebApi
             return GetPlayerSummary(friend.Id);
         }
 
+        public PlayerSummary GetPlayerSummary(string name)
+        {
+            return GetPlayerSummary(FindPlayerId(name));
+        }
+
         // Retrieves player ban info.
         public PlayerBanInfo GetPlayerBanInfo(long playerId)
         {
@@ -55,6 +65,11 @@ namespace SharpSteamWebApi
         public PlayerBanInfo GetPlayerBanInfo(Friend friend)
         {
             return GetPlayerBanInfo(friend.Id);
+        }
+
+        public PlayerBanInfo GetPlayerBanInfo(string name)
+        {
+            return GetPlayerBanInfo(FindPlayerId(name));
         }
 
         // Retrieves player owned games info.
@@ -70,6 +85,11 @@ namespace SharpSteamWebApi
             return GetOwnedGames(friend.Id, includeFreeGames, verbose);
         }
 
+        public OwnedGameInfo[] GetOwnedGames(string name, bool includeFreeGames, bool verbose)
+        {
+            return GetOwnedGames(FindPlayerId(name), includeFreeGames, verbose);
+        }
+
         // Retrieves recently played owned games info.
         public OwnedGameInfo[] GetRecentGames(long playerId, int count, bool verbose)
         {
@@ -83,6 +103,11 @@ namespace SharpSteamWebApi
             return GetRecentGames(friend.Id, count, verbose);
         }
 
+        public OwnedGameInfo[] GetRecentGames(string name, int count, bool verbose)
+        {
+            return GetRecentGames(FindPlayerId(name), count, verbose);
+        }
+
         // Retrieves a player's friends list.
         public Friend[] GetPlayerFriends(long playerId)
         {
@@ -92,6 +117,11 @@ namespace SharpSteamWebApi
         public Friend[] GetPlayerFriends(Friend friend)
         {
             return GetPlayerFriends(friend.Id);
+        }
+
+        public Friend[] GetPlayerFriends(string name)
+        {
+            return GetPlayerFriends(FindPlayerId(name));
         }
 
         // Retrieves achieved player achievements.
@@ -110,6 +140,11 @@ namespace SharpSteamWebApi
             return GetPlayerAchievements(friend.Id, appId);
         }
 
+        public PlayerAchievement[] GetPlayerAchievements(string name, int appId)
+        {
+            return GetPlayerAchievements(FindPlayerId(name), appId);
+        }
+
         // Retrieves player statistics of a particular game.
         public PlayerStatistic[] GetPlayerStatistics(long playerId, int appId)
         {
@@ -124,6 +159,22 @@ namespace SharpSteamWebApi
         public PlayerStatistic[] GetPlayerStatistics(Friend friend, int appId)
         {
             return GetPlayerStatistics(friend.Id, appId);
+        }
+
+        public PlayerStatistic[] GetPlayerStatistics(string name, int appId)
+        {
+            return GetPlayerStatistics(FindPlayerId(name), appId);
+        }
+
+        // Retrieve player Id.
+        public long FindPlayerId(string name)
+        {
+            long id = IdFinder.GetIdFromName(Key, name);
+            if (id != -1)
+                return id;
+
+            id = IdFinder.GetIdFromUrl(Key, name);
+            return id;
         }
     }
 }
