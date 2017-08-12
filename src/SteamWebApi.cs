@@ -127,14 +127,14 @@ namespace SharpSteamWebApi
         }
 
         // Retrieve player Id.
-        public long FindPlayerIdFromName(string name)
+        public long FindPlayerId(string name)
         {
-            return IdFinder.GetIdFromName(Key, name);
-        }
+            long id = IdFinder.GetIdFromName(Key, name);
+            if (id != -1)
+                return id;
 
-        public long FindPlayerIdFromUrl(string url)
-        {
-            return IdFinder.GetIdFromUrl(Key, url);
+            id = IdFinder.GetIdFromUrl(Key, name);
+            return id;
         }
     }
 }
