@@ -193,6 +193,10 @@ namespace SharpSteamWebApi
             if (xml == null)
                 return null;
 
+            XElement[] players = xml.Descendants("player").ToArray();
+            if (players.Length <= 0)
+                return null;
+
             PlayerSummary result = Parse(xml.Descendants("player").ToArray()[0]);
             result.SharedGameOwner = GetSharedGameOwner(apikey, playerId, result.AppId);
             return result;
