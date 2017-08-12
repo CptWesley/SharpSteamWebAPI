@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -24,13 +25,16 @@ namespace SharpSteamWebApi
         // Gets a steam Id from a full profile url.
         public static long GetIdFromUrl(string apikey, string url)
         {
-            string idPattern = @"\/profiles\/(\d+)\/?";
+            if (url.ElementAt(url.Length - 1) == '/')
+                url = url.Substring(0, url.Length - 1);
+
+            string idPattern = @"\/profiles\/(\d+)";
             Regex idRegex = new Regex(idPattern);
             Match idMatch = idRegex.Match(url);
             if (idMatch.Success)
                 return long.Parse(idMatch.Groups[1].Value);
 
-            string namePattern = @"\/id\/(.+)\/?";
+            string namePattern = @"\/id\/(.+)";
             Regex nameRegex = new Regex(namePattern);
             Match nameMatch = nameRegex.Match(url);
             if (nameMatch.Success)
