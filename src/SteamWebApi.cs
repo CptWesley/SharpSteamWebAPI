@@ -126,6 +126,15 @@ namespace SharpSteamWebApi
             return GetPlayerStatistics(friend.Id, appId);
         }
 
+        // Retrieve player Id.
+        public long FindPlayerIdFromName(string name)
+        {
+            return IdFinder.GetIdFromName(Key, name);
+        }
 
+        public long FindPlayerIdFromUrl(string url)
+        {
+            return IdFinder.GetIdFromUrl(Key, url);
+        }
     }
 }
