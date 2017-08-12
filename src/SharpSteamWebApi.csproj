@@ -49,6 +49,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="NewsArticle.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerStatistic.cs" />
     <Compile Include="PlayerSummary.cs" />
     <Compile Include="Relationship.cs" />
     <Compile Include="SSWAObject.cs" />
