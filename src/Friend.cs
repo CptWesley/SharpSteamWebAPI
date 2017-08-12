@@ -64,9 +64,6 @@ namespace SharpSteamWebApi
 
             ElementParser parser = new ElementParser(xml);
 
-            if (!parser.GetAttributeBoolean("achieved"))
-                return null;
-
             Friend result = new Friend
             {
                 Id = parser.GetAttributeLong("steamid"),
