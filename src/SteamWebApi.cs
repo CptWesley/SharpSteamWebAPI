@@ -125,5 +125,7 @@ namespace SharpSteamWebApi
         {
             return GetPlayerStatistics(friend.Id, appId);
         }
+
+
     }
 }
