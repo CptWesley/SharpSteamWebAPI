@@ -68,5 +68,16 @@ namespace SharpSteamWebApi
         {
             return GetPlayerAchievements(player.Summary.Id, appId);
         }
+
+        // Retrieves a player's friends list.
+        public Friend[] GetPlayerFriends(long playerId)
+        {
+            return Friend.Query(Key, playerId);
+        }
+
+        public Friend[] GetPlayerFriends(Player player)
+        {
+            return GetPlayerFriends(player.Summary.Id);
+        }
     }
 }
