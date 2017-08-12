@@ -30,16 +30,31 @@ namespace SharpSteamWebApi
             return Player.Query(Key, playerId);
         }
 
+        public Player GetPlayer(Friend friend)
+        {
+            return GetPlayer(friend.Id);
+        }
+
         // Retrieves player summary.
         public PlayerSummary GetPlayerSummary(long playerId)
         {
             return PlayerSummary.Query(Key, playerId);
         }
 
+        public PlayerSummary GetPlayerSummary(Friend friend)
+        {
+            return GetPlayerSummary(friend.Id);
+        }
+
         // Retrieves player ban info.
         public PlayerBanInfo GetPlayerBanInfo(long playerId)
         {
             return PlayerBanInfo.Query(Key, playerId);
+        }
+
+        public PlayerBanInfo GetPlayerBanInfo(Friend friend)
+        {
+            return GetPlayerBanInfo(friend.Id);
         }
 
         // Retrieves player owned games info.
@@ -50,12 +65,22 @@ namespace SharpSteamWebApi
             return OwnedGameInfo.Query(Key, playerId, includeFreeGames);
         }
 
+        public OwnedGameInfo[] GetOwnedGames(Friend friend, bool includeFreeGames, bool verbose)
+        {
+            return GetOwnedGames(friend.Id, includeFreeGames, verbose);
+        }
+
         // Retrieves recently played owned games info.
         public OwnedGameInfo[] GetRecentGames(long playerId, int count, bool verbose)
         {
             if (verbose)
                 return VerboseOwnedGameInfo.QueryRecent(Key, playerId, count);
             return OwnedGameInfo.QueryRecent(Key, playerId, count);
+        }
+
+        public OwnedGameInfo[] GetRecentGames(Friend friend, int count, bool verbose)
+        {
+            return GetRecentGames(friend.Id, count, verbose);
         }
 
         // Retrieves achieved player achievements.
@@ -69,6 +94,11 @@ namespace SharpSteamWebApi
             return GetPlayerAchievements(player.Summary.Id, appId);
         }
 
+        public PlayerAchievement[] GetPlayerAchievements(Friend friend, int appId)
+        {
+            return GetPlayerAchievements(friend.Id, appId);
+        }
+
         // Retrieves a player's friends list.
         public Friend[] GetPlayerFriends(long playerId)
         {
@@ -78,6 +108,11 @@ namespace SharpSteamWebApi
         public Friend[] GetPlayerFriends(Player player)
         {
             return GetPlayerFriends(player.Summary.Id);
+        }
+
+        public Friend[] GetPlayerFriends(Friend friend)
+        {
+            return GetPlayerFriends(friend.Id);
         }
     }
 }
