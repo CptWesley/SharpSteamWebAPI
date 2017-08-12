@@ -8,6 +8,7 @@ namespace SharpSteamWebApi
         public PlayerBanInfo BanInfo { get; set; }
         public OwnedGameInfo[] OwnedGames { get; set; }
         public OwnedGameInfo[] RecentGames { get; set; }
+        public Friend[] Friends { get; set; }
 
         // Constructor for a player.
         public Player()
@@ -16,6 +17,7 @@ namespace SharpSteamWebApi
             BanInfo = null;
             OwnedGames = new OwnedGameInfo[0];
             RecentGames = new OwnedGameInfo[0];
+            Friends = new Friend[0];
         }
 
         // Checks if this player has a summary.
@@ -42,6 +44,12 @@ namespace SharpSteamWebApi
             return RecentGames.Length > 0;
         }
 
+        // Checks if we have info on friends.
+        public bool HasFriends()
+        {
+            return Friends.Length > 0;
+        }
+
         // Queries all player info.
         public static Player Query(string apikey, long playerId)
         {
@@ -50,7 +58,8 @@ namespace SharpSteamWebApi
                 Summary = PlayerSummary.Query(apikey, playerId),
                 BanInfo = PlayerBanInfo.Query(apikey, playerId),
                 OwnedGames = OwnedGameInfo.Query(apikey, playerId, true),
-                RecentGames = OwnedGameInfo.QueryRecent(apikey, playerId, 3)
+                RecentGames = OwnedGameInfo.QueryRecent(apikey, playerId, 3),
+                Friends = Friend.Query(apikey, playerId)
             };
 
             return player;
