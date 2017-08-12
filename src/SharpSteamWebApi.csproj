@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Achievement.cs" />
+    <Compile Include="Friend.cs" />
     <Compile Include="OwnedGameInfo.cs" />
     <Compile Include="PlayerAchievement.cs" />
     <Compile Include="PlayerBanInfo.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="NewsArticle.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerSummary.cs" />
+    <Compile Include="Relationship.cs" />
     <Compile Include="SSWAObject.cs" />
     <Compile Include="Statistic.cs" />
     <Compile Include="SteamWebApi.cs" />
