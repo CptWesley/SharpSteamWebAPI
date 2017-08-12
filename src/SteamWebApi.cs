@@ -66,7 +66,7 @@ namespace SharpSteamWebApi
 
         public PlayerAchievement[] GetPlayerAchievements(Player player, int appId)
         {
-            return PlayerAchievement.Query(Key, player.Summary.Id, appId);
+            return GetPlayerAchievements(player.Summary.Id, appId);
         }
     }
 }
